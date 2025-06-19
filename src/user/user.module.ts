@@ -9,7 +9,8 @@ import { ResponseModule } from 'src/response/response.module';
 @Module({
     imports: [TypeOrmModule.forFeature([User]),ResponseModule],
     controllers: [UserController],
-    providers:[UsersService] // Add your controllers here
+    providers:[UsersService],
+     exports: [UsersService], // Add your controllers here
 })
 
 export class UserModule {}

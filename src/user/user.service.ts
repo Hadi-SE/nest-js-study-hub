@@ -9,41 +9,51 @@ import { NotFoundException } from '@nestjs/common';
 @Injectable()
 export class UsersService {
 
-    constructor(
+ constructor(
         @InjectRepository(User)
         private usersRepository: Repository<User>,
-    ) {}
+) {}
 
-    findAll(): Promise<User[]> {
-        return this.usersRepository.find();
-    }
-    create(user: Partial<User>): Promise<User> {
-        const newUser = this.usersRepository.create(user);
-        return this.usersRepository.save(newUser);
-    }
+  async findByEmail(email: string): Promise<User | null> {
+    return this.usersRepository.findOne({ where: { email } });
+  }
 
-    findOne(id: number): Promise<User | null> {
-        return this.usersRepository.findOneBy({ id });
-    }
+  async createUser(userData: Partial<User>) {
+    const newUser = this.usersRepository.create(userData);
+    return await this.usersRepository.save(newUser); // returning the saved user!
+}
 
-    update(id: number, user: Partial<User>): Promise<User| null> {
+
+    // findAll(): Promise<User[]> {
+    //     return this.usersRepository.find();
+    // }
+    // create(user: Partial<User>): Promise<User> {
+    //     const newUser = this.usersRepository.create(user);
+    //     return this.usersRepository.save(newUser);
+    // }
+
+    // findOne(id: number): Promise<User | null> {
+    //     return this.usersRepository.findOneBy({ id });
+    // }
+
+    // update(id: number, user: Partial<User>): Promise<User| null> {
         
-        this.usersRepository.update(id, user);
-        const updated =  this.usersRepository.findOneBy({ id });
+    //     this.usersRepository.update(id, user);
+    //     const updated =  this.usersRepository.findOneBy({ id });
 
-        if (!updated) {
-            throw new NotFoundException(`User with ID ${id} not found`);
-        }
-        return updated;
-        }
+    //     if (!updated) {
+    //         throw new NotFoundException(`User with ID ${id} not found`);
+    //     }
+    //     return updated;
+    //     }
     
 
-        remove(id: number): Promise<User | null> {
-            const user =  this.usersRepository.findOneBy({ id });
-            if (!user) {
-                throw new NotFoundException(`User with ID ${id} not found`);
-            }
-            this.usersRepository.delete(id);
-            return user;
-        }
+    //     remove(id: number): Promise<User | null> {
+    //         const user =  this.usersRepository.findOneBy({ id });
+    //         if (!user) {
+    //             throw new NotFoundException(`User with ID ${id} not found`);
+    //         }
+    //         this.usersRepository.delete(id);
+    //         return user;
+    //     }
 }

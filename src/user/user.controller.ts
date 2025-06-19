@@ -15,42 +15,42 @@ export class UserController {
 ) {}
 
 
-    @Get()
-    getUser() { 
-        return this._userService.findAll();       
-    }
+    // @Get()
+    // getUser() { 
+    //     return this._userService.findAll();       
+    // }
 
-    @Post('create')
-    async createUser(@Body() CreateUserDto:CreateUserDto ) {
-    console.log('Request body received:', CreateUserDto);
-    const user = await this._userService.create(CreateUserDto); 
-    return new ApiResponse(true,'User created successfully',user);
-    }
+    // @Post('create')
+    // async createUser(@Body() CreateUserDto:CreateUserDto ) {
+    // console.log('Request body received:', CreateUserDto);
+    // const user = await this._userService.create(CreateUserDto); 
+    // return new ApiResponse(true,'User created successfully',user);
+    // }
 
 
-    @Post('update/:id')
-    async updateUser(
-     @Param('id', ParseIntPipe) id: number,
-     @Body() updateData: Partial<CreateUserDto>
-    ) {
-        console.log('Update request received for ID:', id);
-        const updatedUser = await this._userService.update(id, updateData);
-        return new ApiResponse(true,'User updated successfully', updatedUser);
-    }
+    // @Post('update/:id')
+    // async updateUser(
+    //  @Param('id', ParseIntPipe) id: number,
+    //  @Body() updateData: Partial<CreateUserDto>
+    // ) {
+    //     console.log('Update request received for ID:', id);
+    //     const updatedUser = await this._userService.update(id, updateData);
+    //     return new ApiResponse(true,'User updated successfully', updatedUser);
+    // }
 
-     @Delete('delete/:id')
-     async deleteUser(@Param('id', ParseIntPipe) id: number) {
-        await this._userService.remove(id);
-        return new ApiResponse(true,'User deleted successfully');
-     }
+    //  @Delete('delete/:id')
+    //  async deleteUser(@Param('id', ParseIntPipe) id: number) {
+    //     await this._userService.remove(id);
+    //     return new ApiResponse(true,'User deleted successfully');
+    //  }
 
-    @Post('test-raw')
-    testRaw(@Req() req: Request) {
-    console.log('HEADERS:', req.headers);
+    // @Post('test-raw')
+    // testRaw(@Req() req: Request) {
+    // console.log('HEADERS:', req.headers);
 
-    console.log('RAW BODY:', req.body);
-    return req.body;
-    }
+    // console.log('RAW BODY:', req.body);
+    // return req.body;
+    // }
 
    
 
